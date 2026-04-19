@@ -91,3 +91,33 @@ document.querySelectorAll('section').forEach(section => {
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 });
+
+const roles = ["Web Developer", "Frontend Developer", "UI/UX Designer"];
+let roleIndex = 0;
+let charIndex = 0;
+const typingElement = document.querySelector(".typing");
+
+function typeEffect() {
+    if (charIndex < roles[roleIndex].length) {
+        typingElement.innerHTML += roles[roleIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(typeEffect, 80);
+    } else {
+        setTimeout(eraseEffect, 1500);
+    }
+}
+
+function eraseEffect() {
+    if (charIndex > 0) {
+        typingElement.innerHTML = roles[roleIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(eraseEffect, 40);
+    } else {
+        roleIndex = (roleIndex + 1) % roles.length;
+        setTimeout(typeEffect, 300);
+    }
+}
+
+if (typingElement) {
+    typeEffect();
+}
